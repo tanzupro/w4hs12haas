@@ -3,7 +3,7 @@ tap_install:
     excluded_packages: []
     shared:
       ingress_domain: w4hs12haas.tanzu.pro
-      ingress_issuer: letsencrypt-production
+      ingress_issuer: ""
     ceip_policy_disclosed: true
     profile: full
     supply_chain: basic
@@ -26,8 +26,10 @@ tap_install:
     buildservice:
       kp_default_repository: harbor.tanzu.pro/tap/buildservice
       exclude_dependencies: true
-      injected_sidecar_support: true
     tap_gui:
+      tls:
+        namespace: tanzu-system-ingress
+        secretName: taptlscert
       service_type: ClusterIP
       metadataStoreAutoconfiguration: true
       app_config:
@@ -47,26 +49,13 @@ tap_install:
       tuf_enabled: false
     cnrs:
       domain_template: '{{.Name}}-{{.Namespace}}.{{.Domain}}'
+      default_tls_secret: tanzu-system-ingress/taptlscert
     api_portal:
       apiPortalServer:
         sourceUrls: https://petstore.swagger.io/v2/swagger.json,http://scg-openapi-service.spring-cloud-gateway.svc.cluster.local/openapi
         trustInsecureSourceUrls: true
         sourceUrlsCacheTtlSec: "30"
         sourceUrlsTimeoutSec: "30"
-      sso:
-        enabled: true
-        secretName: sso-credentials
-        apiManager:
-          roles: tanzu.read
-      apiKey:
-        enabled: true
-        vault:
-          url: http://vault.vault.svc:8200/
-          role: api-portal-role
-          path: api-portal-for-vmware-tanzu
-      serviceAccount:
-        create: true
-        name: api-portal
     local_source_proxy:
       repository: harbor.tanzu.pro/tap/local-source
       push_secret:

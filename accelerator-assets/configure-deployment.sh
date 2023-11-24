@@ -39,7 +39,7 @@ mv ./secrets-to-seal/tanzu-sync/tanzu-sync-values.sops.yaml ../clusters/taplab/t
 
 mv ./secrets-to-seal/values/tap-sensitive-values.sops.yaml ../clusters/taplab/cluster-config/values/
 
-if [ tlsHttpSolver = 'tlsManual' ]
+if [ tlsManual = 'tlsManual' ]
 then
 mv ./secrets-to-seal/tls/taplab-tls-certs.sops.yaml ../clusters/taplab/cluster-config/config/
 fi

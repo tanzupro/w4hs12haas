@@ -13,4 +13,4 @@ spec:
   virtualhost:
     fqdn: tdemo.w4hs12haas.tanzu.pro
     tls:
-      secretName: tdemo-gateway-tls-cert
+      secretName: taptlscert
